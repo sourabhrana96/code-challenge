@@ -32,6 +32,15 @@ class CompaniesController < ApplicationController
     end
   end  
 
+  def destroy
+    begin
+      @company.destroy
+      redirect_to companies_path, notice: "Company #{@company.name} was successfully destroyed!"
+    rescue ActiveRecord::RecordNotDestroyed => e
+      puts "Company #{@company.name} not destroyed"
+    end
+  end
+
   private
 
   def company_params
